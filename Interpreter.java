@@ -29,10 +29,7 @@ public class Interpreter {
 				} else if (!loopPoint.contains(lineNum)) {
 					loopPoint.add(lineNum);
 				}
-				// Hack solution to values not return true if equal as ints
-				String temp = vars.get(splitFile[lineNum][1]).toString() + splitFile[lineNum][3].toString();
-				
-				if (temp.substring(0,1).equals(temp.substring(1,2))) {
+				if (vars.get(splitFile[lineNum][1]).equals(Integer.valueOf(splitFile[lineNum][3]))) {
 					lineNum = checkPoint + 1;
 					loopPoint.remove(loopPoint.size()-1);
 					
@@ -59,11 +56,9 @@ public class Interpreter {
 			}
 			System.out.println(vars.values());
 		}
-		
-		
 	}
 	
-	// Reads the file and returns a 2d array with each element separated and each line further separated
+	// Reads the file and returns a 2d array with line separated as top lists and then each element of those lines as their own elements  
 	public static String[][] readFile() throws IOException{
 		String fileName = textInput("Enter the name of the file:");
 		Path path = Paths.get(".\\"+fileName);
@@ -82,7 +77,7 @@ public class Interpreter {
 		return splitFile;
 	}
 	
-	// Reads the input from command line reutrning as a string
+	// Reads the input from command line returning as a string
 	public static String textInput(String request) throws IOException{
 		System.out.println(request);
 		InputStreamReader in = new InputStreamReader(System.in);
