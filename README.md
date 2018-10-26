@@ -20,3 +20,7 @@ Repeats the contained code between while and end until VARIABLE1 = VARIABLE2
 Operators are resolved left to right
 
 6. VARIABLE1 = VARIABLE2 OR NUMBER; sets VARIABLE1 value to VARIABLE2 OR NUMBER
+
+7. // Inline comments
+
+8. /// Multi Line comments Begun and ended the same way
