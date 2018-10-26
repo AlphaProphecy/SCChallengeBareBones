@@ -23,4 +23,4 @@ Operators are resolved left to right
 
 7. // Inline comments
 
-8. /// Multi Line comments Begun and ended the same way
+8. /// Multi Line comments Begin and ended the same way
