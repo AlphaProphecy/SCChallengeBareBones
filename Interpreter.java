@@ -144,6 +144,7 @@ public class Interpreter {
 	private static ArrayList<ArrayList <String>> readFile() throws IOException{
 		String fileName = textInput("Enter the name of the file:");
 		Path path = Paths.get(".\\"+fileName);
+		
 		int lineCount = (int) Files.lines(path).count();
 		
 		BufferedReader file = Files.newBufferedReader(path);
@@ -174,7 +175,7 @@ public class Interpreter {
 		    	cMode = !cMode;
 		    }
 		    
-			// Regx removing indentation whitespace, ; and trailing whitespace
+			// Regx removing indentation whitespace, ;, trailing whitespace and comments
 			line = line.replaceAll("^\\s{2,}|;|//.*|[ \\t]+$", "");
 			
 			for (String p:operators) {
