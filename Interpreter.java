@@ -13,37 +13,31 @@ import java.util.Collections;
 import java.nio.file.Path;
 
 public class Interpreter {
-	public static Map<String, Float> vars;
-	
 	public static void main(String args[]) throws IOException{
 		ArrayList<ArrayList<String>> splitFile = new ArrayList<ArrayList<String>>();
-		
-		splitFile = readFile();
+		Map<String, Float> vars = new HashMap<String, Float>();
 		
 		ArrayList <Integer> loopPoint = new ArrayList<>();
-		vars = new HashMap<String, Float>();
 		int lineNum = 0;
 		int checkPoint = 0;
 		
 		Pattern fFinder = Pattern.compile("[^a-zA-Z]");
 		Matcher fMatcher;
 		
-		/*for (int i=0; i<splitFile.size();i++) {
-			for (int ii = 0; ii < splitFile.get(i).size(); ii++) {
-				System.out.println(splitFile.get(i).get(ii).toString());
-			}
-		}*/
-		
 		ArrayList <String> operators = new ArrayList<String>();
-		
 		operators.add("+");
 		operators.add("-");
 		operators.add("*");
 		operators.add("/");
 		
-		
+		splitFile = readFile();
+		/*for (int i=0; i<splitFile.size();i++) {
+			for (int ii = 0; ii < splitFile.get(i).size(); ii++) {
+				System.out.println(splitFile.get(i).get(ii).toString());
+			}
+		}*/
+
 		System.out.println("Variables are printed alphabetically");
-		
 		
 		while (lineNum < splitFile.size()) {
 			// Collates operations into their results first
@@ -89,10 +83,8 @@ public class Interpreter {
 						
 					}
 					i++;
-					
 				}
 			}
-			
 			if (splitFile.get(lineNum).get(0).equals("while")) {
 				if (loopPoint.isEmpty()) {
 					loopPoint.add(lineNum);
@@ -136,7 +128,6 @@ public class Interpreter {
 			}
 			System.out.println(vars.values());
 		}
-		
 	}
 	
 	// Reads the file and returns a 2d array with line separated as top lists and then each element of those lines as their own
@@ -144,30 +135,25 @@ public class Interpreter {
 	private static ArrayList<ArrayList <String>> readFile() throws IOException{
 		String fileName = textInput("Enter the name of the file:");
 		Path path = Paths.get(".\\"+fileName);
-		
+		BufferedReader file = Files.newBufferedReader(path);
 		int lineCount = (int) Files.lines(path).count();
 		
-		BufferedReader file = Files.newBufferedReader(path);
-		
-		ArrayList <String> temp = new ArrayList<String>();
-		
+		boolean cMode = false;
 		
 		Pattern pMain = Pattern.compile("\\S+");
 		Pattern pMLCI = Pattern.compile("/{3,}");
 		
-		ArrayList <String> operators = new ArrayList<String>();
+		ArrayList <String> temp = new ArrayList<String>();
 		
+		ArrayList <String> operators = new ArrayList<String>();
 		operators.add("\\+");
 		operators.add("-");
 		operators.add("\\*");
 		operators.add("/");
 		operators.add("=");
 		
-		boolean cMode = false;
-		
 		for (int i = 0; i < lineCount; i++) {
 			String line = file.readLine();
-			
 			
 		    Matcher MLCI = pMLCI.matcher(line);
 		    
@@ -182,7 +168,6 @@ public class Interpreter {
 				line = line.replaceAll(p, " " + p + " ");
 			}
 			
-			
 			line = line.replaceAll("\\s+", " ");
 			
 		    Matcher main = pMain.matcher(line);
@@ -192,14 +177,13 @@ public class Interpreter {
 		    	
 		    }
 		}
+		file.close();
 		
 		ArrayList <ArrayList<String>> splitFile = new ArrayList<ArrayList<String>>();
-		
 		
 		for (String s:temp) {
 			splitFile.add(new ArrayList<String>(Arrays.asList(s.split(" "))));
 		}
-		
 		
 		return splitFile;
 	}
