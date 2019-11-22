@@ -10,3 +10,4 @@ while X not 0 do; /// Loops over the indee
 end; /// end of the looped code
 X = X - 15.1512 * Z / Y; /// X is set to the value of the full calculation
 ```
+Characters follwing /// are comments and \*indented code\* is a placeholder for actualy indented code
